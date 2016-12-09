@@ -38,6 +38,7 @@
             
             function getTokenFromCookie() {
                 var csrfCookie = document.cookie.split(';')[0];
+                console.log('getTokenFromCookie - The token is: ' + csrfCookie.split('=')[1]);
                 return csrfCookie.split('=')[1];
             }
             
