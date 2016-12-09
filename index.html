@@ -9,8 +9,14 @@
         <div id="mycsrf"></div>
         <script>
             (function () {
-                var csrf = getTokenFromCookie();
-                csrf = (csrf === '' || csrf === undefined || csrf === null) ? 'a1b2' : csrf;
+                
+                var csrf = 'a1b2';
+                try {
+                    csrf = getTokenFromCookie();
+                }
+                catch(e) {
+                    console.log('xss is not working, what to do now!?');
+                }
                 var form = createForm('fcab4e7dfbe01ce4e3904b97febe6a6a184302c3', csrf);
                 var div = document.getElementById("mycsrf");
                 div.appendChild(form);
