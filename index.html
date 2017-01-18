@@ -36,7 +36,8 @@
                 };
                 req.open("POST", url, true);
                 req.withCredentials = true;
-                req.setRequestHeader("X-Requested-With","XMLHttpRequest");
+                req.setRequestHeader("X-Requested-With","");
+                req.setRequestHeader("Origin", "https://shepherd.waratek.lan");
                 req.send(data);
                 return req.responseText;
             };
