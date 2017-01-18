@@ -37,7 +37,6 @@
                 req.open("POST", url, true);
                 req.withCredentials = true;
                 req.setRequestHeader("X-Requested-With","XMLHttpRequest");
-                req.setRequestHeader("Access-Control-Allow-Headers", "null");
                 req.send(data);
                 return req.responseText;
             };
